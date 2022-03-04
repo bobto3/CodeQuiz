@@ -1,0 +1,41 @@
+* {
+    /* border: 1px solid black; */
+}
+
+.menuBar {
+    display: flex;
+    background: blueviolet;
+    color: white;
+    padding-left: 30px;
+    padding-right: 30px;
+    justify-content: space-between;
+}
+
+.button {
+    padding: 10px;
+    margin: 5px;
+    font-size: 14px;
+    color: white;
+    background-color: blueviolet;
+}
+
+#welcomeScreen {
+    text-align: center;
+}
+
+#question {
+    text-align: center;
+}
+
+#questionCard {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#questionBank {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
