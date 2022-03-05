@@ -9,6 +9,10 @@ var startGameButtonEl = document.querySelector("#startGameButton");
 var welcomeScreenEl = document.querySelector("#welcomeScreen")
 var timerScoreEl = document.querySelector("#timerScore");
 var rightOrWrongEl = document.querySelector("#rightOrWrong");
+var highScoresEl = document.querySelector("#viewHighscores");
+var scoreBoardEl = document.querySelector("#highScoresBoard");
+var closeWindowEl = document.querySelector("#closeWindow");
+var containerEl = document.querySelector("#container");
 
 var questionBank = [
     {
@@ -107,12 +111,30 @@ function startTimer() {
             // Stops timer at 0 and displays Times Up! message
             clearInterval(timerInterval);
             timerScoreEl.textContent = "Time's Up!"
+            endGame();
         }
     }, 1000);
+}
+
+function endGame() {
+    if(timerScoreEl.textContent = "Time's Up!") {
+        var response = prompt("Please Enter Your Name");
+        console.log(response);
+    }
 }
 
 startGameButtonEl.addEventListener("click", function() {
     startGame();
     startTimer();
     console.log("start game");
+})
+
+//turns high scoreboard on
+highScoresEl.addEventListener("click", function(){
+    containerEl.style.display = "inline";
+})
+
+//closes high scoreboard
+closeWindowEl.addEventListener("click", function(){
+    containerEl.style.display = "none";
 })
