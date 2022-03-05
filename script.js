@@ -15,7 +15,7 @@ var closeWindowEl = document.querySelector("#closeWindow");
 var containerEl = document.querySelector("#container");
 var highScoreListEl = document.querySelector("#highScoreList");
 
-
+//questions
 var questionBank = [
     {
     question:"What does HTML stand for?",
@@ -38,13 +38,12 @@ var questionBank = [
     correctAnswer: ".js",
 }]
 
-
+//start button
 startGameButtonEl.addEventListener("click", function() {
     startGame();
     startTimer();
     console.log("start game");
 })
-
 
 function startGame() {
     questionCardEl.style.display = "flex";
@@ -53,7 +52,7 @@ function startGame() {
     askQuestion();
 }
 
-
+//timer
 var startTime = 59;
 function startTimer() {
     startTime = 59;
@@ -69,7 +68,7 @@ function startTimer() {
     }, 1000);
 }
 
-
+//question structure
 var questionIndex = 0;
 function askQuestion() {
     questionEl.textContent = questionBank[questionIndex].question;
@@ -79,6 +78,7 @@ function askQuestion() {
     answerDEl.textContent = questionBank[questionIndex].possibleAnswers[3];
 }
 
+//button A
 answerAEl.addEventListener("click", function(){
     rightOrWrongEl.style.display = "block";
     if (questionBank[questionIndex].possibleAnswers[0] === questionBank[questionIndex].correctAnswer) {
@@ -93,23 +93,14 @@ answerAEl.addEventListener("click", function(){
 
     if (questionIndex > questionBank.length-1){
         endGame();
-        var response = prompt("Enter Your Name To Save Your Score");  
-        var score = timerScoreEl.textContent = startTime;      
-       
-        var newFinishedPlayer = document.createElement("li");
-        newFinishedPlayer.textContent = response + ": " + score;
-        highScoreListEl.appendChild(newFinishedPlayer);
-        
-        console.log(response);
-        console.log(score);
-        console.log(newFinishedPlayer);
-
+        listScore();
         startTime = 0;
     } else {
         askQuestion();
     }
 });
 
+//button B
 answerBEl.addEventListener("click", function(){
     rightOrWrongEl.style.display = "block";
     if (questionBank[questionIndex].possibleAnswers[1] === questionBank[questionIndex].correctAnswer) {
@@ -124,23 +115,14 @@ answerBEl.addEventListener("click", function(){
 
     if (questionIndex > questionBank.length-1){
         endGame();
-        var response = prompt("Enter Your Name To Save Your Score");  
-        var score = timerScoreEl.textContent = startTime;      
-        
-        var newFinishedPlayer = document.createElement("li");
-        newFinishedPlayer.textContent = response + ": " + score;
-        highScoreListEl.appendChild(newFinishedPlayer);
-        
-        console.log(response);
-        console.log(score);
-        console.log(newFinishedPlayer);
-
+        listScore();
         startTime = 0;
     } else {
         askQuestion();
     }
 });
 
+//button C
 answerCEl.addEventListener("click", function(){
     rightOrWrongEl.style.display = "block";
     if (questionBank[questionIndex].possibleAnswers[2] === questionBank[questionIndex].correctAnswer) {
@@ -155,23 +137,14 @@ answerCEl.addEventListener("click", function(){
 
     if (questionIndex > questionBank.length-1){
         endGame();
-        var response = prompt("Enter Your Name To Save Your Score");  
-        var score = timerScoreEl.textContent = startTime;      
-        
-        var newFinishedPlayer = document.createElement("li");
-        newFinishedPlayer.textContent = response + ": " + score;
-        highScoreListEl.appendChild(newFinishedPlayer);
-        
-        console.log(response);
-        console.log(score);
-        console.log(newFinishedPlayer);
-
+        listScore();
         startTime = 0;
     } else {
         askQuestion();
     }
 });
 
+//button D
 answerDEl.addEventListener("click", function(){
     rightOrWrongEl.style.display = "block";
     if (questionBank[questionIndex].possibleAnswers[3] === questionBank[questionIndex].correctAnswer) {
@@ -187,23 +160,24 @@ answerDEl.addEventListener("click", function(){
 
     if (questionIndex > questionBank.length-1){
         endGame();
-        var response = prompt("Enter Your Name To Save Your Score");  
-        var score = timerScoreEl.textContent = startTime;      
-        
-        var newFinishedPlayer = document.createElement("li");
-        newFinishedPlayer.textContent = response + ": " + score;
-        highScoreListEl.appendChild(newFinishedPlayer);
-        
-        console.log(response);
-        console.log(score);
-        console.log(newFinishedPlayer);
-        
+        listScore();
         startTime = 0;
     } else {
         askQuestion();
     }
 });
 
+//records high score at the end of the game
+function listScore() {
+    var response = prompt("Enter Your Name To Save Your Score");  
+    var score = timerScoreEl.textContent = startTime;
+    var newFinishedPlayer = document.createElement("li");
+    newFinishedPlayer.textContent = response + ": " + score;
+    highScoreListEl.appendChild(newFinishedPlayer);
+    console.log(response);
+    console.log(score);
+    console.log(newFinishedPlayer);
+}
 
 function endGame() {
     containerEl.style.display = "inline-block";
@@ -211,11 +185,6 @@ function endGame() {
     welcomeScreenEl.style.display = "block";
     questionIndex = 0;
 }
-
-// function promptUser(){
-//     var response = prompt("Enter Your Name To Save Your Score");  
-//     var score = timerScoreEl.textContent = startTime;      
-// } 
 
 //turns high scoreboard on
 highScoresEl.addEventListener("click", function(){
