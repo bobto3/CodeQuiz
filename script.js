@@ -18,7 +18,7 @@ var highScoreListEl = document.querySelector("#highScoreList");
 var questionBank = [
     {
     question:"What does HTML stand for?",
-    possibleAnswers: ["Hyphen Top Markup Label", "Hyper Text Markup Language", "Holy Traveler Makeshift Language", "Hold That Makeup Left"],
+    possibleAnswers: ["Hyper Text Markup Language", "Hyphen Top Markup Label", "Holy Traveler Makeshift Language", "Hold That Makeup Left"],
     correctAnswer: "Hyper Text Markup Language",
 },
 {
@@ -27,14 +27,14 @@ var questionBank = [
     correctAnswer: "Page Styling",
 },
 {
-    question:"What is the third question?",
-    possibleAnswers: ["Answer A", "Answer B", "Answer C", "Answer D"],
-    correctAnswer: "Answer C",
+    question:"A Function Associated With An object is Called:",
+    possibleAnswers: ["Function", "Method", "Link", "Array"],
+    correctAnswer: "Method",
 }, 
 {
-    question:"What is the forth question?",
-    possibleAnswers: ["Answer A", "Answer B", "Answer C", "Answer D"],
-    correctAnswer: "Answer D",
+    question:"A JavaScript File Has An Extension of:",
+    possibleAnswers: [".jss", ".javasc", ".js", ".script"],
+    correctAnswer: ".js",
 }]
 
 function startGame() {
@@ -57,7 +57,7 @@ function askQuestion() {
 
 answerAEl.addEventListener("click", function(){
     rightOrWrongEl.style.display = "block";
-    if (answerAEl === questionBank.correctAnswer) {
+    if (questionBank[questionIndex].possibleAnswers[0] === questionBank[questionIndex].correctAnswer) {
         rightOrWrongEl.textContent = "Correct!";
         startTime = startTime + 10;
     } else {
@@ -67,14 +67,7 @@ answerAEl.addEventListener("click", function(){
     questionIndex++;
 
     if (questionIndex > questionBank.length-1){
-        containerEl.style.display = "inline-block";
-        questionCardEl.style.display = "none";
-        welcomeScreenEl.style.display = "block";
-        var response = prompt("Enter Your Name To Save Your Score");
-        questionIndex = 0;
-        // var node = document.createElement('li');
-        // node.appendChild(document.createTextNode(response));
-        // document.highScoreListEl.appendChild(node);
+        endGame();
     } else {
         askQuestion();
     }
@@ -82,17 +75,17 @@ answerAEl.addEventListener("click", function(){
 
 answerBEl.addEventListener("click", function(){
     rightOrWrongEl.style.display = "block";
-    if (answerBEl === questionBank.correctAnswer) {
+    if (questionBank[questionIndex].possibleAnswers[1] === questionBank[questionIndex].correctAnswer) {
         rightOrWrongEl.textContent = "Correct!";
+        startTime = startTime + 10;
     } else {
         rightOrWrongEl.textContent = "Sorry, wrong answer";
+        startTime = startTime - 10;
     }
     questionIndex++;
 
     if (questionIndex > questionBank.length-1){
-        containerEl.style.display = "inline-block";
-        questionCardEl.style.display = "none";
-        welcomeScreenEl.style.display = "block";
+        endGame();
     } else {
         askQuestion();
     }
@@ -100,17 +93,17 @@ answerBEl.addEventListener("click", function(){
 
 answerCEl.addEventListener("click", function(){
     rightOrWrongEl.style.display = "block";
-    if (answerCEl === questionBank.correctAnswer) {
+    if (questionBank[questionIndex].possibleAnswers[2] === questionBank[questionIndex].correctAnswer) {
         rightOrWrongEl.textContent = "Correct!";
+        startTime = startTime + 10;
     } else {
         rightOrWrongEl.textContent = "Sorry, wrong answer";
+        startTime = startTime - 10;
     }
     questionIndex++;
 
     if (questionIndex > questionBank.length-1){
-        containerEl.style.display = "inline-block";
-        questionCardEl.style.display = "none";
-        welcomeScreenEl.style.display = "block";
+        endGame();
     } else {
         askQuestion();
     }
@@ -118,17 +111,17 @@ answerCEl.addEventListener("click", function(){
 
 answerDEl.addEventListener("click", function(){
     rightOrWrongEl.style.display = "block";
-    if (answerDEl === questionBank.correctAnswer) {
+    if (questionBank[questionIndex].possibleAnswers[3] === questionBank[questionIndex].correctAnswer) {
         rightOrWrongEl.textContent = "Correct!";
+        startTime = startTime + 10;
     } else {
         rightOrWrongEl.textContent = "Sorry, wrong answer";
+        startTime = startTime - 10;
     }
     questionIndex++;
 
     if (questionIndex > questionBank.length-1){
-        containerEl.style.display = "inline-block";
-        questionCardEl.style.display = "none";
-        welcomeScreenEl.style.display = "block";
+        endGame();
     } else {
         askQuestion();
     }
@@ -138,33 +131,41 @@ answerDEl.addEventListener("click", function(){
 var startTime = 59;
 
 function startTimer() {
+    startTime = 59;
     var timerInterval = setInterval(function() {
-        timerScoreEl.textContent = "Time: " + startTime + " seconds left";
+        timerScoreEl.textContent = "Time/ Score: " + startTime + " seconds left";
         startTime--;
 
         if(startTime < 0) {
             // Stops timer at 0 and displays Times Up! message
             clearInterval(timerInterval);
-            timerScoreEl.textContent = "Time's Up!"
-            endGame();
+            timerScoreEl.textContent = "Game Over"
         }
     }, 1000);
 }
 
-function endGame() {
-    if (timerScoreEl.textContent = "Time's Up!") {
-        var response = prompt("Enter Your Name To Save Your Score");
-        console.log(response);
-        containerEl.style.display = "inline-block";
-        questionCardEl.style.display = "none";
-        welcomeScreenEl.style.display = "flex";
-    }
+// if (timerScoreEl.textContent = "Time's Up!") {
+//        endGame(); 
+//     var response = prompt("Enter Your Name To Save Your Score");
+//     console.log(response);
+//     containerEl.style.display = "inline-block";
+//     questionCardEl.style.display = "none";
+//     welcomeScreenEl.style.display = "block";
+// }
 
-    // if (questionIndex > questionBank.length){
-    //     containerEl.style.display = "inline-block";
-    //     questionCardEl.style.display = "none";
-    //     welcomeScreenEl.style.display = "block";
-    // }
+function endGame() {
+    containerEl.style.display = "inline-block";
+    questionCardEl.style.display = "none";
+    welcomeScreenEl.style.display = "block";
+    var response = prompt("Enter Your Name To Save Your Score");  
+    var score = timerScoreEl.textContent = "Score: " + startTime;      
+    timerScoreEl.textContent = score;
+    
+    console.log(response);
+    console.log(score);
+
+    startTime = 0;
+    questionIndex = 0;
 }
 
 startGameButtonEl.addEventListener("click", function() {
