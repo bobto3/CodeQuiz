@@ -106,7 +106,7 @@ function startTimer() {
         if(startTime < 0) {
             // Stops timer at 0 and displays Times Up! message
             clearInterval(timerInterval);
-            timerScoreEl.textContent = "Times Up!"
+            timerScoreEl.textContent = "Time's Up!"
         }
     }, 1000);
 }
