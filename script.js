@@ -13,6 +13,7 @@ var highScoresEl = document.querySelector("#viewHighscores");
 var scoreBoardEl = document.querySelector("#highScoresBoard");
 var closeWindowEl = document.querySelector("#closeWindow");
 var containerEl = document.querySelector("#container");
+var highScoreListEl = document.querySelector("#highScoreList");
 
 var questionBank = [
     {
@@ -39,6 +40,7 @@ var questionBank = [
 function startGame() {
     questionCardEl.style.display = "flex";
     welcomeScreenEl.style.display = "none";
+    containerEl.style.display = "none";
     askQuestion();
     
 }
@@ -63,7 +65,19 @@ answerAEl.addEventListener("click", function(){
         startTime = startTime - 10;
     }
     questionIndex++;
-    askQuestion();
+
+    if (questionIndex > questionBank.length-1){
+        containerEl.style.display = "inline-block";
+        questionCardEl.style.display = "none";
+        welcomeScreenEl.style.display = "block";
+        var response = prompt("Enter Your Name To Save Your Score");
+        questionIndex = 0;
+        // var node = document.createElement('li');
+        // node.appendChild(document.createTextNode(response));
+        // document.highScoreListEl.appendChild(node);
+    } else {
+        askQuestion();
+    }
 });
 
 answerBEl.addEventListener("click", function(){
@@ -74,7 +88,14 @@ answerBEl.addEventListener("click", function(){
         rightOrWrongEl.textContent = "Sorry, wrong answer";
     }
     questionIndex++;
-    askQuestion();
+
+    if (questionIndex > questionBank.length-1){
+        containerEl.style.display = "inline-block";
+        questionCardEl.style.display = "none";
+        welcomeScreenEl.style.display = "block";
+    } else {
+        askQuestion();
+    }
 });
 
 answerCEl.addEventListener("click", function(){
@@ -85,7 +106,14 @@ answerCEl.addEventListener("click", function(){
         rightOrWrongEl.textContent = "Sorry, wrong answer";
     }
     questionIndex++;
-    askQuestion();
+
+    if (questionIndex > questionBank.length-1){
+        containerEl.style.display = "inline-block";
+        questionCardEl.style.display = "none";
+        welcomeScreenEl.style.display = "block";
+    } else {
+        askQuestion();
+    }
 });
 
 answerDEl.addEventListener("click", function(){
@@ -96,7 +124,14 @@ answerDEl.addEventListener("click", function(){
         rightOrWrongEl.textContent = "Sorry, wrong answer";
     }
     questionIndex++;
-    askQuestion();
+
+    if (questionIndex > questionBank.length-1){
+        containerEl.style.display = "inline-block";
+        questionCardEl.style.display = "none";
+        welcomeScreenEl.style.display = "block";
+    } else {
+        askQuestion();
+    }
 });
 
 
@@ -117,10 +152,19 @@ function startTimer() {
 }
 
 function endGame() {
-    if(timerScoreEl.textContent = "Time's Up!") {
-        var response = prompt("Please Enter Your Name");
+    if (timerScoreEl.textContent = "Time's Up!") {
+        var response = prompt("Enter Your Name To Save Your Score");
         console.log(response);
+        containerEl.style.display = "inline-block";
+        questionCardEl.style.display = "none";
+        welcomeScreenEl.style.display = "flex";
     }
+
+    // if (questionIndex > questionBank.length){
+    //     containerEl.style.display = "inline-block";
+    //     questionCardEl.style.display = "none";
+    //     welcomeScreenEl.style.display = "block";
+    // }
 }
 
 startGameButtonEl.addEventListener("click", function() {
@@ -131,7 +175,7 @@ startGameButtonEl.addEventListener("click", function() {
 
 //turns high scoreboard on
 highScoresEl.addEventListener("click", function(){
-    containerEl.style.display = "inline";
+    containerEl.style.display = "inline-block";
 })
 
 //closes high scoreboard
