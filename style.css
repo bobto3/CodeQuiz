@@ -29,9 +29,10 @@
 
 #questionCard {
     margin-top: 20px;
-    display: flex;
+    /* display: flex; */
     flex-direction: column;
     justify-content: center;
+    display: none;
 }
 
 #questionBank {
