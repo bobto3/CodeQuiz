@@ -10,9 +10,6 @@ var welcomeScreenEl = document.querySelector("#welcomeScreen")
 var timerScoreEl = document.querySelector("#timerScore");
 var rightOrWrongEl = document.querySelector("#rightOrWrong");
 
-var questionIndex = 0;
-//questionBank[questionIndex].question;
-
 var questionBank = [
     {
     question:"What does HTML stand for?",
@@ -20,34 +17,36 @@ var questionBank = [
     correctAnswer: "Hyper Text Markup Language",
 },
 {
-    question:"What is the second question?",
-    possibleAnswers: ["A", "B", "C", "D"],
-    correctAnswer: "B",
+    question:"What is CSS used for?",
+    possibleAnswers: ["Page Content", "Page Structure", "Page Styling", "Page Logic"],
+    correctAnswer: "Page Styling",
 },
 {
     question:"What is the third question?",
-    possibleAnswers: ["A", "B", "C", "D"],
-    correctAnswer: "C",
+    possibleAnswers: ["Answer A", "Answer B", "Answer C", "Answer D"],
+    correctAnswer: "Answer C",
 }, 
 {
     question:"What is the forth question?",
-    possibleAnswers: ["A", "B", "C", "D"],
-    correctAnswer: "D",
+    possibleAnswers: ["Answer A", "Answer B", "Answer C", "Answer D"],
+    correctAnswer: "Answer D",
 }]
 
 function startGame() {
     questionCardEl.style.display = "flex";
     welcomeScreenEl.style.display = "none";
-    question1();
+    askQuestion();
     
 }
 
-function question1() {
-    questionEl.textContent = questionBank[0].question;
-    answerAEl.textContent = questionBank[0].possibleAnswers[0];
-    answerBEl.textContent = questionBank[0].possibleAnswers[1];
-    answerCEl.textContent = questionBank[0].possibleAnswers[2];
-    answerDEl.textContent = questionBank[0].possibleAnswers[3];
+var questionIndex = 0;
+
+function askQuestion() {
+    questionEl.textContent = questionBank[questionIndex].question;
+    answerAEl.textContent = questionBank[questionIndex].possibleAnswers[0];
+    answerBEl.textContent = questionBank[questionIndex].possibleAnswers[1];
+    answerCEl.textContent = questionBank[questionIndex].possibleAnswers[2];
+    answerDEl.textContent = questionBank[questionIndex].possibleAnswers[3];
 }
 
 answerAEl.addEventListener("click", function(){
@@ -59,6 +58,8 @@ answerAEl.addEventListener("click", function(){
         rightOrWrongEl.textContent = "Sorry, wrong answer";
         startTime = startTime - 10;
     }
+    questionIndex++;
+    askQuestion();
 });
 
 answerBEl.addEventListener("click", function(){
@@ -68,6 +69,8 @@ answerBEl.addEventListener("click", function(){
     } else {
         rightOrWrongEl.textContent = "Sorry, wrong answer";
     }
+    questionIndex++;
+    askQuestion();
 });
 
 answerCEl.addEventListener("click", function(){
@@ -77,6 +80,8 @@ answerCEl.addEventListener("click", function(){
     } else {
         rightOrWrongEl.textContent = "Sorry, wrong answer";
     }
+    questionIndex++;
+    askQuestion();
 });
 
 answerDEl.addEventListener("click", function(){
@@ -86,7 +91,10 @@ answerDEl.addEventListener("click", function(){
     } else {
         rightOrWrongEl.textContent = "Sorry, wrong answer";
     }
+    questionIndex++;
+    askQuestion();
 });
+
 
 var startTime = 59;
 
@@ -95,7 +103,7 @@ function startTimer() {
         timerScoreEl.textContent = "Time: " + startTime + " seconds left";
         startTime--;
 
-        if(startTime === -2) {
+        if(startTime < 0) {
             // Stops timer at 0 and displays Times Up! message
             clearInterval(timerInterval);
             timerScoreEl.textContent = "Times Up!"
