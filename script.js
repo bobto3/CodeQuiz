@@ -95,9 +95,15 @@ answerAEl.addEventListener("click", function(){
         endGame();
         var response = prompt("Enter Your Name To Save Your Score");  
         var score = timerScoreEl.textContent = startTime;      
+       
+        var newFinishedPlayer = document.createElement("li");
+        newFinishedPlayer.textContent = response + ": " + score;
+        highScoreListEl.appendChild(newFinishedPlayer);
         
         console.log(response);
         console.log(score);
+        console.log(newFinishedPlayer);
+
         startTime = 0;
     } else {
         askQuestion();
@@ -121,8 +127,14 @@ answerBEl.addEventListener("click", function(){
         var response = prompt("Enter Your Name To Save Your Score");  
         var score = timerScoreEl.textContent = startTime;      
         
+        var newFinishedPlayer = document.createElement("li");
+        newFinishedPlayer.textContent = response + ": " + score;
+        highScoreListEl.appendChild(newFinishedPlayer);
+        
         console.log(response);
         console.log(score);
+        console.log(newFinishedPlayer);
+
         startTime = 0;
     } else {
         askQuestion();
@@ -146,8 +158,14 @@ answerCEl.addEventListener("click", function(){
         var response = prompt("Enter Your Name To Save Your Score");  
         var score = timerScoreEl.textContent = startTime;      
         
+        var newFinishedPlayer = document.createElement("li");
+        newFinishedPlayer.textContent = response + ": " + score;
+        highScoreListEl.appendChild(newFinishedPlayer);
+        
         console.log(response);
         console.log(score);
+        console.log(newFinishedPlayer);
+
         startTime = 0;
     } else {
         askQuestion();
@@ -172,8 +190,14 @@ answerDEl.addEventListener("click", function(){
         var response = prompt("Enter Your Name To Save Your Score");  
         var score = timerScoreEl.textContent = startTime;      
         
+        var newFinishedPlayer = document.createElement("li");
+        newFinishedPlayer.textContent = response + ": " + score;
+        highScoreListEl.appendChild(newFinishedPlayer);
+        
         console.log(response);
         console.log(score);
+        console.log(newFinishedPlayer);
+        
         startTime = 0;
     } else {
         askQuestion();
@@ -186,18 +210,11 @@ function endGame() {
     questionCardEl.style.display = "none";
     welcomeScreenEl.style.display = "block";
     questionIndex = 0;
-
-    //append response and score to #highScoreList
-
-    
 }
 
 // function promptUser(){
 //     var response = prompt("Enter Your Name To Save Your Score");  
 //     var score = timerScoreEl.textContent = startTime;      
-    
-//     console.log(response);
-//     console.log(score);
 // } 
 
 //turns high scoreboard on
