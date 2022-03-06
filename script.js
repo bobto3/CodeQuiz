@@ -174,9 +174,11 @@ function listScore() {
     var newFinishedPlayer = document.createElement("li");
     newFinishedPlayer.textContent = response + ": " + score;
     highScoreListEl.appendChild(newFinishedPlayer);
+    
     console.log(response);
     console.log(score);
     console.log(newFinishedPlayer);
+    console.log(highScoreListEl);
 }
 
 function endGame() {
@@ -184,6 +186,7 @@ function endGame() {
     questionCardEl.style.display = "none";
     welcomeScreenEl.style.display = "block";
     questionIndex = 0;
+    rightOrWrongEl.textContent = "";
 }
 
 //turns high scoreboard on
