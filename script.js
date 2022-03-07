@@ -82,11 +82,11 @@ function askQuestion() {
 answerAEl.addEventListener("click", function(){
     rightOrWrongEl.style.display = "block";
     if (questionBank[questionIndex].possibleAnswers[0] === questionBank[questionIndex].correctAnswer) {
-        rightOrWrongEl.textContent = "Correct!";
+        rightOrWrongEl.textContent = "Correct! +10";
         startTime = startTime + 10;
         questionIndex++;
     } else {
-        rightOrWrongEl.textContent = "Sorry, wrong answer";
+        rightOrWrongEl.textContent = "Sorry, wrong answer. -15";
         startTime = startTime - 15;
         questionIndex++;
     }
@@ -104,11 +104,11 @@ answerAEl.addEventListener("click", function(){
 answerBEl.addEventListener("click", function(){
     rightOrWrongEl.style.display = "block";
     if (questionBank[questionIndex].possibleAnswers[1] === questionBank[questionIndex].correctAnswer) {
-        rightOrWrongEl.textContent = "Correct!";
+        rightOrWrongEl.textContent = "Correct! +10";
         startTime = startTime + 10;
         questionIndex++;
     } else {
-        rightOrWrongEl.textContent = "Sorry, wrong answer";
+        rightOrWrongEl.textContent = "Sorry, wrong answer. -15";
         startTime = startTime - 15;
         questionIndex++;
     }
@@ -126,11 +126,11 @@ answerBEl.addEventListener("click", function(){
 answerCEl.addEventListener("click", function(){
     rightOrWrongEl.style.display = "block";
     if (questionBank[questionIndex].possibleAnswers[2] === questionBank[questionIndex].correctAnswer) {
-        rightOrWrongEl.textContent = "Correct!";
+        rightOrWrongEl.textContent = "Correct! +10";
         startTime = startTime + 10;
         questionIndex++;
     } else {
-        rightOrWrongEl.textContent = "Sorry, wrong answer";
+        rightOrWrongEl.textContent = "Sorry, wrong answer. -15";
         startTime = startTime - 15;
         questionIndex++;
     }
@@ -148,11 +148,11 @@ answerCEl.addEventListener("click", function(){
 answerDEl.addEventListener("click", function(){
     rightOrWrongEl.style.display = "block";
     if (questionBank[questionIndex].possibleAnswers[3] === questionBank[questionIndex].correctAnswer) {
-        rightOrWrongEl.textContent = "Correct!";
+        rightOrWrongEl.textContent = "Correct! +10";
         startTime = startTime + 10;
         questionIndex++;
     } else {
-        rightOrWrongEl.textContent = "Sorry, wrong answer";
+        rightOrWrongEl.textContent = "Sorry, wrong answer. -15";
         startTime = startTime - 15;
         questionIndex++;
     }
@@ -167,11 +167,20 @@ answerDEl.addEventListener("click", function(){
     }
 });
 
+function endGame() {
+    containerEl.style.display = "inline-block";
+    questionCardEl.style.display = "none";
+    welcomeScreenEl.style.display = "block";
+    questionIndex = 0;
+    rightOrWrongEl.textContent = "";
+}
+
 //records high score at the end of the game
 function listScore() {
-    var response = prompt("Enter Your Name To Save Your Score");  
+      
     var score = timerScoreEl.textContent = startTime;
     var newFinishedPlayer = document.createElement("li");
+    var response = prompt("Your Score: " + score + "\nEnter Your Name To Save Your Score");
     newFinishedPlayer.textContent = response + ": " + score;
     highScoreListEl.appendChild(newFinishedPlayer);
     
@@ -179,14 +188,6 @@ function listScore() {
     console.log(score);
     console.log(newFinishedPlayer);
     console.log(highScoreListEl);
-}
-
-function endGame() {
-    containerEl.style.display = "inline-block";
-    questionCardEl.style.display = "none";
-    welcomeScreenEl.style.display = "block";
-    questionIndex = 0;
-    rightOrWrongEl.textContent = "";
 }
 
 //turns high scoreboard on
