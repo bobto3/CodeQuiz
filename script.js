@@ -15,7 +15,7 @@ var closeWindowEl = document.querySelector("#closeWindow");
 var containerEl = document.querySelector("#container");
 var highScoreListEl = document.querySelector("#highScoreList");
 
-//questions
+//question bank object
 var questionBank = [
     {
     question:"What does HTML stand for?",
@@ -38,13 +38,7 @@ var questionBank = [
     correctAnswer: ".js",
 }]
 
-//start button
-startGameButtonEl.addEventListener("click", function() {
-    startGame();
-    startTimer();
-    console.log("start game");
-})
-
+//displays questions and hides welcome screen after the start button is pressed
 function startGame() {
     questionCardEl.style.display = "flex";
     welcomeScreenEl.style.display = "none";
@@ -52,16 +46,24 @@ function startGame() {
     askQuestion();
 }
 
+//start button
+startGameButtonEl.addEventListener("click", function() {
+    startGame();
+    startTimer();
+    console.log("start game");
+})
+
 //timer
+var timerInterval;
 var startTime = 59;
 function startTimer() {
     startTime = 59;
-    var timerInterval = setInterval(function() {
+    timerInterval = setInterval(function() {
         timerScoreEl.textContent = "Time/ Score: " + startTime + " seconds left";
         startTime--;
 
         if(startTime < 0) {
-            // Stops timer at 0 and displays Times Up! message
+            // Stops timer at 0 and displays "Game Over" message
             clearInterval(timerInterval);
             timerScoreEl.textContent = "Game Over";
         }
@@ -78,6 +80,7 @@ function askQuestion() {
     answerDEl.textContent = questionBank[questionIndex].possibleAnswers[3];
 }
 
+//displays Correct or Incorrect message after the question is answered
 function rightWrongTextTimeout (answerStatus) {
     if (answerStatus === "correct") {
             rightOrWrongEl.textContent = "Correct! +10";
@@ -106,13 +109,7 @@ answerAEl.addEventListener("click", function(){
         rightWrongTextTimeout("incorrect");
     }
 
-    if (questionIndex > questionBank.length-1){
-        timerScoreEl.textContent = "Game Over";
-        endGame();
-        listScore();
-    } else {
-        askQuestion();
-    }
+    questionsDone();
 });
 
 //button B
@@ -124,13 +121,7 @@ answerBEl.addEventListener("click", function(){
         rightWrongTextTimeout("incorrect");
     }
 
-    if (questionIndex > questionBank.length-1){
-        timerScoreEl.textContent = "Game Over";
-        endGame();
-        listScore();
-    } else {
-        askQuestion();
-    }
+    questionsDone();
 });
 
 //button C
@@ -142,13 +133,7 @@ answerCEl.addEventListener("click", function(){
         rightWrongTextTimeout("incorrect");
     }
 
-    if (questionIndex > questionBank.length-1){
-        timerScoreEl.textContent = "Game Over";
-        endGame();
-        listScore();
-    } else {
-        askQuestion();
-    }
+    questionsDone();
 });
 
 //button D
@@ -159,31 +144,34 @@ answerDEl.addEventListener("click", function(){
     } else {
         rightWrongTextTimeout("incorrect");
     }
-    
 
+    questionsDone();
+});
+
+//calls end of game functions after all the questions have been answered
+function questionsDone() {
     if (questionIndex > questionBank.length-1){
-        timerScoreEl.textContent = "Game Over";
         endGame();
         listScore();
+        endClock();
     } else {
         askQuestion();
     }
-});
+}
 
+//hides question block and displays welcome message after the game is finished
 function endGame() {
     setTimeout(() => {
-        containerEl.style.display = "inline-block";
+    containerEl.style.display = "inline-block";
     questionCardEl.style.display = "none";
     welcomeScreenEl.style.display = "block";
     questionIndex = 0;
     rightOrWrongEl.textContent = "";
-    }, 1000);
-    
+    }, 500);
 }
 
 //records high score at the end of the game
 function listScore() {
-
     var score = timerScoreEl.textContent = startTime;
     var newFinishedPlayer = document.createElement("li");
     
@@ -196,13 +184,12 @@ function listScore() {
             return;
         }
     }, 1000); 
+}
 
-    
-
-    console.log(response);
-    console.log(score);
-    console.log(newFinishedPlayer);
-    console.log(highScoreListEl);
+//stops clock and displays Game Over message
+function endClock() {
+    clearInterval(timerInterval);
+    timerScoreEl.textContent = "Game Over";
 }
 
 //turns high scoreboard on
