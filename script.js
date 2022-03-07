@@ -63,7 +63,7 @@ function startTimer() {
         if(startTime < 0) {
             // Stops timer at 0 and displays Times Up! message
             clearInterval(timerInterval);
-            timerScoreEl.textContent = "Game Over"
+            timerScoreEl.textContent = "Game Over";
         }
     }, 1000);
 }
@@ -78,23 +78,38 @@ function askQuestion() {
     answerDEl.textContent = questionBank[questionIndex].possibleAnswers[3];
 }
 
+function rightWrongTextTimeout (answerStatus) {
+    if (answerStatus === "correct") {
+            rightOrWrongEl.textContent = "Correct! +10";
+            startTime = startTime + 10;
+            questionIndex++;
+        setTimeout(() => {
+            rightOrWrongEl.textContent = "";
+        }, 1000);
+        
+    } else {
+            rightOrWrongEl.textContent = "Sorry, wrong answer. -15";
+            startTime = startTime - 15;
+            questionIndex++;
+        setTimeout(() => {
+            rightOrWrongEl.textContent = "";
+        }, 1000);
+    }
+}
+
 //button A
 answerAEl.addEventListener("click", function(){
     rightOrWrongEl.style.display = "block";
     if (questionBank[questionIndex].possibleAnswers[0] === questionBank[questionIndex].correctAnswer) {
-        rightOrWrongEl.textContent = "Correct! +10";
-        startTime = startTime + 10;
-        questionIndex++;
+        rightWrongTextTimeout("correct");
     } else {
-        rightOrWrongEl.textContent = "Sorry, wrong answer. -15";
-        startTime = startTime - 15;
-        questionIndex++;
+        rightWrongTextTimeout("incorrect");
     }
 
     if (questionIndex > questionBank.length-1){
+        timerScoreEl.textContent = "Game Over";
         endGame();
         listScore();
-        startTime = 0;
     } else {
         askQuestion();
     }
@@ -104,19 +119,15 @@ answerAEl.addEventListener("click", function(){
 answerBEl.addEventListener("click", function(){
     rightOrWrongEl.style.display = "block";
     if (questionBank[questionIndex].possibleAnswers[1] === questionBank[questionIndex].correctAnswer) {
-        rightOrWrongEl.textContent = "Correct! +10";
-        startTime = startTime + 10;
-        questionIndex++;
+        rightWrongTextTimeout("correct");
     } else {
-        rightOrWrongEl.textContent = "Sorry, wrong answer. -15";
-        startTime = startTime - 15;
-        questionIndex++;
+        rightWrongTextTimeout("incorrect");
     }
 
     if (questionIndex > questionBank.length-1){
+        timerScoreEl.textContent = "Game Over";
         endGame();
         listScore();
-        startTime = 0;
     } else {
         askQuestion();
     }
@@ -126,19 +137,15 @@ answerBEl.addEventListener("click", function(){
 answerCEl.addEventListener("click", function(){
     rightOrWrongEl.style.display = "block";
     if (questionBank[questionIndex].possibleAnswers[2] === questionBank[questionIndex].correctAnswer) {
-        rightOrWrongEl.textContent = "Correct! +10";
-        startTime = startTime + 10;
-        questionIndex++;
+        rightWrongTextTimeout("correct");
     } else {
-        rightOrWrongEl.textContent = "Sorry, wrong answer. -15";
-        startTime = startTime - 15;
-        questionIndex++;
+        rightWrongTextTimeout("incorrect");
     }
 
     if (questionIndex > questionBank.length-1){
+        timerScoreEl.textContent = "Game Over";
         endGame();
         listScore();
-        startTime = 0;
     } else {
         askQuestion();
     }
@@ -148,42 +155,50 @@ answerCEl.addEventListener("click", function(){
 answerDEl.addEventListener("click", function(){
     rightOrWrongEl.style.display = "block";
     if (questionBank[questionIndex].possibleAnswers[3] === questionBank[questionIndex].correctAnswer) {
-        rightOrWrongEl.textContent = "Correct! +10";
-        startTime = startTime + 10;
-        questionIndex++;
+        rightWrongTextTimeout("correct");
     } else {
-        rightOrWrongEl.textContent = "Sorry, wrong answer. -15";
-        startTime = startTime - 15;
-        questionIndex++;
+        rightWrongTextTimeout("incorrect");
     }
     
 
     if (questionIndex > questionBank.length-1){
+        timerScoreEl.textContent = "Game Over";
         endGame();
         listScore();
-        startTime = 0;
     } else {
         askQuestion();
     }
 });
 
 function endGame() {
-    containerEl.style.display = "inline-block";
+    setTimeout(() => {
+        containerEl.style.display = "inline-block";
     questionCardEl.style.display = "none";
     welcomeScreenEl.style.display = "block";
     questionIndex = 0;
     rightOrWrongEl.textContent = "";
+    }, 1000);
+    
 }
 
 //records high score at the end of the game
 function listScore() {
-      
+
     var score = timerScoreEl.textContent = startTime;
     var newFinishedPlayer = document.createElement("li");
-    var response = prompt("Your Score: " + score + "\nEnter Your Name To Save Your Score");
-    newFinishedPlayer.textContent = response + ": " + score;
-    highScoreListEl.appendChild(newFinishedPlayer);
     
+    setTimeout(() => {
+        var response = prompt("Your Score: " + score + "\nEnter Your Name To Save Your Score");
+        newFinishedPlayer.textContent = response + ": " + score;
+        if (response) {
+            highScoreListEl.appendChild(newFinishedPlayer);
+        } else {
+            return;
+        }
+    }, 1000); 
+
+    
+
     console.log(response);
     console.log(score);
     console.log(newFinishedPlayer);
